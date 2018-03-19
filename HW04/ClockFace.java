@@ -37,7 +37,6 @@ public class ClockFace extends JPanel
       int tickLen = 10;
       int medTickLen = 15;
       int longTickLen = 20;
-      
       int r = width/2; //radius of clock
       int cX = x+(width)/2;
       int cY = y+(width)/2;
@@ -48,6 +47,9 @@ public class ClockFace extends JPanel
             = new Ellipse2D.Double(this.x,this.y,width, width);
       g2.setColor(Color.WHITE);
       g2.fill(clockFace);
+      ClockHand hour = new ClockHand(cX, cY, 5 , tickLen);
+      hour.draw(g2);
+     
 
       for ( int i=1; i<= 60; i++){
           // default tick length is short
