@@ -1,7 +1,12 @@
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.geom.*;
 import javax.swing.*;
+import javax.xml.crypto.dsig.Transform;
+import java.time.*;
+import javax.swing.Timer;
 import java.util.*;
+
 
 /**
    A Clock face
@@ -48,7 +53,7 @@ public class ClockFace extends JPanel
             = new Ellipse2D.Double(this.x,this.y,width, width);
       g2.setColor(Color.WHITE);
       g2.fill(clockFace);
-
+      
       for ( int i=1; i<= 60; i++){
           // default tick length is short
           int len = tickLen;
@@ -103,12 +108,32 @@ public class ClockFace extends JPanel
          int tx = (int)(Math.cos(angleFrom3)*(r-longTickLen-charWidth));
          int ty = (int)(-Math.sin(angleFrom3)*(r-longTickLen-charHeight));
 
-         g2.drawString(numStr, (int)cX+tx, (int)cY+ty);
-            
-      }
-   }
+			g2.drawString(numStr, (int) cX + tx, (int) cY + ty);
 
-   private int x;
-   private int y;
+		}
+
+		// TIMER REPAINTING (repaints every second)
+		ActionListener listener = event -> repaint();
+
+		final int DELAY = 1000;
+		Timer t = new Timer(DELAY, listener);
+		t.start();
+
+		// SECOND HAND
+		ClockHand secondHand = new ClockHand(cX, cY - (r - medTickLen), 5, width / 2, "SECOND");
+
+		secondHand.draw(g2);
+
+		// MINUTE HAND
+		ClockHand minuteHand = new ClockHand(cX, cY - (r - medTickLen), 5, width / 2, "MINUTE");
+		minuteHand.draw(g2);
+
+		// HOUR HAND
+		ClockHand hourHand = new ClockHand(cX, cY - (r - medTickLen), 5, width / 2, "HOUR");
+		hourHand.draw(g2);
+	}
+
+	private int x;
+	private int y;
    private int width;
 }
