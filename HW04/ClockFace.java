@@ -47,7 +47,7 @@ public class ClockFace extends JPanel
             = new Ellipse2D.Double(this.x,this.y,width, width);
       g2.setColor(Color.WHITE);
       g2.fill(clockFace);
-      ClockHand hour = new ClockHand(cX, cY, 5 , tickLen);
+      ClockHand hour = new ClockHand(x, y, cX , cY);
       hour.draw(g2);
      
 

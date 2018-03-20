@@ -1,3 +1,4 @@
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.*;
@@ -16,9 +17,10 @@ public class ClockHand implements MoveableShape {
 
 	@Override
 	public void draw(Graphics2D g2) {
-		Rectangle2D.Double hand = new Rectangle2D.Double(x, y, width, height);
+		g2.setStroke(new BasicStroke(5));
+		Line2D.Float hand = new Line2D.Float(x, y, width, height);
 		g2.setPaint(Color.BLUE);
-		g2.fill(hand);
+		g2.draw(hand);
 	}
 
 	@Override
