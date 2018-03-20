@@ -6,20 +6,22 @@ public class ClockHand implements MoveableShape {
 	private int x;
 	private int y;
 	private int width;
-	private int height;
+	private int size;
+	private Color color;
 	
-	public ClockHand(int x, int y , int width, int height) {
-		this.width = width;
+	public ClockHand(int x, int y , int radius, int size,Color color) {
+		this.width = radius;
 		this.x =x ;
 		this.y = y;	
-		this.height = height;
+		this.size = size;
+		this.color = color;
 	}
 
 	@Override
 	public void draw(Graphics2D g2) {
-		g2.setStroke(new BasicStroke(5));
-		Line2D.Float hand = new Line2D.Float(x, y, width, height);
-		g2.setPaint(Color.BLUE);
+		g2.setStroke(new BasicStroke(size));
+		Line2D.Float hand = new Line2D.Float(x, y, width, width);
+		g2.setPaint(color);
 		g2.draw(hand);
 	}
 

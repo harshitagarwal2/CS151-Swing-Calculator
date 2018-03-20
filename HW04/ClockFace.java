@@ -47,9 +47,12 @@ public class ClockFace extends JPanel
             = new Ellipse2D.Double(this.x,this.y,width, width);
       g2.setColor(Color.WHITE);
       g2.fill(clockFace);
-      ClockHand hour = new ClockHand(x, y, cX , cY);
-      hour.draw(g2);
-     
+      ClockHand hourHand = new ClockHand(cX, y, cX , longTickLen, Color.BLACK);
+      hourHand.draw(g2);
+      ClockHand minHand = new ClockHand(x, cY, cX , medTickLen , Color.yellow );
+      minHand.draw(g2);
+      ClockHand secHand = new ClockHand(2*r, cY, cY , tickLen , Color.red );
+      secHand.draw(g2);   
 
       for ( int i=1; i<= 60; i++){
           // default tick length is short
