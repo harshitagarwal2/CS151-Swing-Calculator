@@ -5,12 +5,14 @@ import java.awt.geom.*;
 public class ClockHand implements MoveableShape {
 	private int x;
 	private int y;
-	private int width;
+	private int xaxis;
+	private int yaxis;
 	private int size;
 	private Color color;
 	
-	public ClockHand(int x, int y , int radius, int size,Color color) {
-		this.width = radius;
+	public ClockHand(int x, int y , int xaxis, int yaxis, int size,Color color) {
+		this.xaxis = xaxis;
+		this.yaxis =yaxis;
 		this.x =x ;
 		this.y = y;	
 		this.size = size;
@@ -20,15 +22,15 @@ public class ClockHand implements MoveableShape {
 	@Override
 	public void draw(Graphics2D g2) {
 		g2.setStroke(new BasicStroke(size));
-		Line2D.Float hand = new Line2D.Float(x, y, width, width);
+		Line2D.Float hand = new Line2D.Float(x, y, xaxis, yaxis);
 		g2.setPaint(color);
 		g2.draw(hand);
 	}
 
 	@Override
 	public void translate(int dx, int dy) {
-		// TODO Auto-generated method stub
-
-	}
+		xaxis= dx;
+		yaxis =dy;
+		}
 
 }

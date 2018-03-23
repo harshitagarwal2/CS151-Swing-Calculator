@@ -1,6 +1,9 @@
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.geom.*;
 import javax.swing.*;
+import javax.swing.Timer;
+
 import java.util.*;
 
 /**
@@ -47,13 +50,7 @@ public class ClockFace extends JPanel
             = new Ellipse2D.Double(this.x,this.y,width, width);
       g2.setColor(Color.WHITE);
       g2.fill(clockFace);
-      ClockHand hourHand = new ClockHand(cX, y, cX , longTickLen, Color.BLACK);
-      hourHand.draw(g2);
-      ClockHand minHand = new ClockHand(x, cY, cX , medTickLen , Color.yellow );
-      minHand.draw(g2);
-      ClockHand secHand = new ClockHand(2*r, cY, cY , tickLen , Color.red );
-      secHand.draw(g2);   
-
+     
       for ( int i=1; i<= 60; i++){
           // default tick length is short
           int len = tickLen;
@@ -88,6 +85,8 @@ public class ClockFace extends JPanel
                   (float)(cY-Math.sin(angleFrom3)*(r-len))
           );
       }
+      
+      
 
       // Draw the full shape onto the graphics context.
       g2.setColor(Color.BLACK);
@@ -111,7 +110,40 @@ public class ClockFace extends JPanel
          g2.drawString(numStr, (int)cX+tx, (int)cY+ty);
             
       }
-   }
+  	Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+  		double second = (double) (calendar.get(Calendar.SECOND));
+  		double secondAngle = Math.PI/2 -(second / 60.0 * 2.0 * Math.PI);
+
+		double minute = (double)(calendar.get(Calendar.MINUTE)) +
+		        (double)(calendar.get(Calendar.SECOND))/60.0;
+		double minAngle =Math.PI/2 - (minute/60.0*2.0*Math.PI);
+		
+		double hour = (double)(calendar.get(Calendar.HOUR_OF_DAY)%12) + (double)(calendar.get(Calendar.MINUTE))/60.0;
+		double hourAngle = Math.PI/2 - (hour/12.0*2.0*Math.PI);
+		
+		 ClockHand hourHand = new ClockHand(cX, cY, 1 ,276, longTickLen, Color.BLACK);
+	      hourHand.draw(g2);
+	      ClockHand minHand = new ClockHand(cX, cY, 0 , 250, medTickLen , Color.yellow );
+	      minHand.draw(g2);
+	      ClockHand secHand = new ClockHand(cX, cY, cX , 0 , tickLen , Color.red );
+	      secHand.draw(g2);   
+
+		
+		minHand.translate((int)(cX+ r*Math.cos(minAngle)),(int) (cY - Math.sin(minAngle)*r));
+		hourHand.translate((int)(cX+ r*Math.cos(hourAngle)),(int) (cY - Math.sin(hourAngle)*r));
+
+		ActionListener listener = event -> {
+			int newx = (int)(cX+ r*Math.cos(secondAngle));
+			int newy =(int) (cY - Math.sin(secondAngle)*r);
+			secHand.translate(newx, newy);
+			System.out.println(newx + "\t" + newy);
+			repaint();
+		};
+
+		final int DELAY = 1000;
+		Timer t = new Timer(DELAY, listener);
+		t.start();
+}
 
    private int x;
    private int y;
