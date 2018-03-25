@@ -3,7 +3,7 @@ import java.awt.geom.*;
 import javax.swing.*;
 
 /**
-A Clock face
+   A Clock face
 */
 public class ClockFace extends JPanel {
     /**
