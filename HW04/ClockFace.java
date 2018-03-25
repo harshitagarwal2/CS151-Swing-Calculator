@@ -26,12 +26,6 @@ public class ClockFace extends JPanel
       this.setPreferredSize(new Dimension(width, width));
    }
 
-   public void translate(int dx, int dy)
-   {
-      x += dx;
-      y += dy;
-   }
-
    public void paintComponent(Graphics g)
    {
       Graphics2D g2 = (Graphics2D) g;
@@ -123,7 +117,7 @@ public class ClockFace extends JPanel
 		
 		 ClockHand hourHand = new ClockHand(cX, cY, 1 ,276, longTickLen, Color.BLACK);
 	      hourHand.draw(g2);
-	      ClockHand minHand = new ClockHand(cX, cY, 0 , 250, medTickLen , Color.yellow );
+	      ClockHand minHand = new ClockHand(cX, cY, 0 , 82, medTickLen , Color.yellow );
 	      minHand.draw(g2);
 	      ClockHand secHand = new ClockHand(cX, cY, cX , 0 , tickLen , Color.red );
 	      secHand.draw(g2);   
@@ -136,7 +130,7 @@ public class ClockFace extends JPanel
 			int newx = (int)(cX+ r*Math.cos(secondAngle));
 			int newy =(int) (cY - Math.sin(secondAngle)*r);
 			secHand.translate(newx, newy);
-			System.out.println(newx + "\t" + newy);
+//			System.out.println(newx + "\t" + newy);
 			repaint();
 		};
 

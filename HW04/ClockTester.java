@@ -11,18 +11,30 @@ public class ClockTester
    public static void main(String[] args)
    {
       JFrame frame = new JFrame();
-
+      SwitchPanel s = new SwitchPanel();
       
-      ClockFace icon = new ClockFace(0, 0, CLOCK_RADIUS);
-      
+      ClockFace clockIcon = new ClockFace(0, 0, CLOCK_RADIUS);
+      StopWatch watchIcon = new StopWatch();
       frame.setLayout(new BorderLayout());
-      frame.add(icon, BorderLayout.CENTER);
+      frame.add(clockIcon, BorderLayout.CENTER);
       
       JPanel topNav = new JPanel(new FlowLayout());
-      topNav.add(new JButton("clock"));
-      topNav.add(new JButton("stopwatch"));
+      JButton clock = new JButton("clock"); 
+      JButton stopwatch = new JButton("stopwatch");
+      topNav.add(clock);
+      topNav.add(stopwatch);
       frame.add(topNav, BorderLayout.NORTH);
-      icon.repaint();
+      clockIcon.repaint();
+      clock.addActionListener(e -> {
+			s.switchPanel(frame, watchIcon, clockIcon);
+
+		});
+      stopwatch.addActionListener(e -> {
+    	  s.switchPanel(frame, clockIcon, watchIcon);
+
+		});
+
+
 
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.pack();

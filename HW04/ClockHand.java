@@ -24,6 +24,7 @@ public class ClockHand implements MoveableShape {
 		g2.setStroke(new BasicStroke(size));
 		Line2D.Float hand = new Line2D.Float(x, y, xaxis, yaxis);
 		g2.setPaint(color);
+		System.out.println(xaxis + "\t" + yaxis);
 		g2.draw(hand);
 	}
 
@@ -31,6 +32,7 @@ public class ClockHand implements MoveableShape {
 	public void translate(int dx, int dy) {
 		xaxis= dx;
 		yaxis =dy;
+		System.out.println("From translate method:" + xaxis + "\t" + yaxis);
 		}
 
 }
