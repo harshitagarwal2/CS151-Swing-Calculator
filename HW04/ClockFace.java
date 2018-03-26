@@ -6,12 +6,6 @@ import javax.swing.*;
 A Clock face
 */
 public class ClockFace extends JPanel {
-    /**
-    Constructs a Clock
-    @param x the left of the bounding rectangle
-    @param y the top of the bounding rectangle
-    @param width the width of the bounding rectangle
-    */
     public ClockFace(int x, int y, int width) {
         this.x = x;
         this.y = y;
@@ -24,6 +18,11 @@ public class ClockFace extends JPanel {
     public void translate(int dx, int dy) {
         x += dx;
         y += dy;
+    }
+    
+    public void setClockNumberIncrement(int n)
+    {
+    	clockNumberIncr = n;
     }
 
     public void paintComponent(Graphics g) {
@@ -87,7 +86,12 @@ public class ClockFace extends JPanel {
         g2.setColor(Color.RED);
 
 		for (int i = 1; i <= 12; i++) {
-			String numStr = "" + i;
+			String numStr = "";
+			if( clockNumberIncr == 1)
+				numStr += i;
+			if(clockNumberIncr == 5)
+				numStr += i*5;
+			//String numStr = "" + i;
 			FontMetrics fm = g2.getFontMetrics(g2.getFont());
 			int charWidth = fm.stringWidth(numStr);
 			int charHeight = fm.getHeight();
@@ -102,9 +106,11 @@ public class ClockFace extends JPanel {
 			g2.drawString(numStr, (int) cX + tx, (int) cY + ty);
 
 		}
+		//setClockNumberIncrement(1);
     }
-
+    
     private int x;
     private int y;
     private int width;
+    private int clockNumberIncr = 1;
 }
