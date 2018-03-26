@@ -10,9 +10,7 @@ public class ClockHand implements MoveableShape {
 	private double startingTick;
 	private Color color;
 
-
     public ClockHand(double x, double y , double xaxis, double yaxis, double startingTick,Color color) {
-    	//this.color = color;
     	this.x = x;
 		this.y =y;
 		this.xaxis =xaxis ;
@@ -23,9 +21,8 @@ public class ClockHand implements MoveableShape {
     
     public void move() {
         startingTick++;  
-        if (startingTick == 60){
-           startingTick = 0;
-        }
+        if (startingTick == 60)
+           reset();   
     }
     
     @Override
@@ -59,6 +56,5 @@ public class ClockHand implements MoveableShape {
     public double getstartingTick(){
        return startingTick;
     }
-    
    
 }
